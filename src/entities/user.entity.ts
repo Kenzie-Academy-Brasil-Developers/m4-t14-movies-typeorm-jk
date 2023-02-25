@@ -1,7 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity('movies_s5')
-class movies_s5{
+@Entity('Movie')
+class Movie{
 
     @PrimaryGeneratedColumn('increment')
     id: number
@@ -9,8 +9,8 @@ class movies_s5{
     @Column({length: 50})
     name: string
 
-    @Column({type:'text', nullable: true})
-    description: string
+    @Column({type:'varchar', nullable: true})
+    description: string | null | undefined
 
     @Column({type: 'integer'})
     duration: number
@@ -21,5 +21,5 @@ class movies_s5{
 };
 
 export{
-    movies_s5
+    Movie
 };

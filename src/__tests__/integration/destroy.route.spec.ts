@@ -2,7 +2,7 @@ import supertest from 'supertest';
 import { DataSource } from 'typeorm';
 import app from '../../app';
 import { AppDataSource } from '../../data-source';
-import { Movie } from '../../entities';
+import { Movie } from '../../entities/user.entity';
 import { iMovieRepo } from '../../interfaces';
 import { deleteRouteMock } from '../mocks';
 
