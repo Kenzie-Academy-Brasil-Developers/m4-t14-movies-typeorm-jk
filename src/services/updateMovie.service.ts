@@ -18,7 +18,7 @@ const updateMovieService = async (movieData: iMovieUpdate, movieId: number): Pro
 
     await userRepository.save(movie)
 
-    const updateMovie = returnMovieSchema.parse(movie),
+    const updateMovie = returnMovieSchema.parse(movie)
 
     return updateMovie
 };
