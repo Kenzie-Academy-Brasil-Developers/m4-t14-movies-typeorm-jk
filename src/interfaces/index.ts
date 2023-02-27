@@ -1,9 +1,10 @@
-import { iMovieCreate, iMovieRepo, iMovieUpdate, iMovieReturn, iGetAllMovies } from './movies.interface';
+import { iMovieCreate, iMovieRepo, iMovieUpdate, iMovieReturn, iGetAllMovies, iGetMoviesWithPages } from './movies.interface';
 
 export {
   iMovieCreate,
   iMovieUpdate,
   iMovieRepo,
   iMovieReturn,
-  iGetAllMovies
+  iGetAllMovies,
+  iGetMoviesWithPages
 };

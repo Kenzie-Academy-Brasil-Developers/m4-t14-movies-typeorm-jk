@@ -1,5 +1,4 @@
 import { z } from 'zod'
-import { hashSync } from 'bcryptjs'
 
 const movieCreateSchema = z.object({
     name: z.string().min(3).max(50),
@@ -12,13 +11,21 @@ const returnMovieSchema = movieCreateSchema.extend({
     id:z.number()
 });
 
+const returnMoviesWithPages = z.object({
+    prevPage: z.string(),
+    nextPage: z.string(),
+    count: z.number(),
+    data: z.array(returnMovieSchema)
+})
+
 const movieUpdateSchema = movieCreateSchema.partial()
 
-const getAllMoviesSchema = returnMovieSchema.array()
+const getAllMoviesSchema = z.array(returnMovieSchema)
 
 export { 
     movieCreateSchema,
     returnMovieSchema,
     getAllMoviesSchema,
-    movieUpdateSchema
+    movieUpdateSchema,
+    returnMoviesWithPages
 }
