@@ -12,8 +12,8 @@ const returnMovieSchema = movieCreateSchema.extend({
 });
 
 const returnMoviesWithPages = z.object({
-    prevPage: z.string(),
-    nextPage: z.string(),
+    prevPage: z.string().nullable(),
+    nextPage: z.string().nullable(),
     count: z.number(),
     data: z.array(returnMovieSchema)
 })
