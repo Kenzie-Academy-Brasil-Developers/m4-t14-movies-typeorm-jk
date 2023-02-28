@@ -14,7 +14,7 @@ const movieIdValidateMiddleware = async(req: Request, resp: Response, next: Next
     })
 
     if(!findMovie){
-        throw new AppError('Movie not found!', 404)
+        throw new AppError('Movie not found', 404)
     };
 
     return next();

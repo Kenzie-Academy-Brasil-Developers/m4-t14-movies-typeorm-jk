@@ -11,11 +11,15 @@ const movieNameValidateMiddleware = async(req: Request, resp: Response, next: Ne
         where:{
             name: req.body.name
         }
-    })
+    });
 
     if(findName){
-        throw new AppError('Movie name already exists!', 409)
-    };
+        let {name} = req.body
+       
+        if(findName.name === name){
+            throw new AppError('Movie already exists.', 409)
+        };
+    }
 
     return next();
 };
