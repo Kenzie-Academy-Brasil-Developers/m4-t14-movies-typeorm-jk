@@ -1,4 +1,4 @@
-import { Like, Repository } from "typeorm";
+import { Repository } from "typeorm";
 import { AppDataSource } from "../data-source";
 import { Movie } from "../entities";
 import { iGetMoviesWithPages } from "../interfaces";
@@ -7,16 +7,36 @@ import { getAllMoviesSchema } from "../schemas/users.schemas";
 const getAllMoviesService = async (perPage: any, page: any, sortMovie?:any, orderMovie?: any):Promise<iGetMoviesWithPages> => {
     const movieRepository: Repository<Movie> = AppDataSource.getRepository(Movie)
 
-    const take: number = Number(perPage) || 5;
-    const skip: number = Number(page) || 1;
-    let order: any = {id: orderMovie}
+    let take: number = Number(perPage) || 5;
+    let skip: number = Number(page) || 1;
+    let order: any = {id: orderMovie};
 
-    if(sortMovie)
+    if(sortMovie === undefined){
+        order = {id: 'ASC'}
+    };
+
+    if(sortMovie==='price'){
+        order = {price: orderMovie}
+    }else if(sortMovie==='duration'){
+        order = {duration: orderMovie}
+    };
+    
+    if(orderMovie === undefined){
         if(sortMovie==='price'){
-            order = {price: orderMovie}
-        }else if(sortMovie==='duration'){
-            order = {duration: orderMovie}
-    }
+            order = {price: 'asc'}
+        }
+        else if(sortMovie==='duration'){
+            order = {duration: 'asc'}
+        }
+    };
+
+    if(take > 5 || take < 0){
+        take = 5
+    };
+
+    if(skip < 0){
+        skip = 1
+    };
 
     const findMovies: Array<Movie>= await movieRepository.find({
         take,
@@ -36,7 +56,9 @@ const getAllMoviesService = async (perPage: any, page: any, sortMovie?:any, orde
         prevPage = null
     };
 
-    if(findMovies.length <= 5 && prevPage != null){
+    if(findMovies.length <= 5 && prevPage != null && data[0] === undefined){
+        nextPage = null
+    }else if(findMovies.length <= 5 && prevPage != null && data.length < 5 && take === 5){
         nextPage = null
     };
 
